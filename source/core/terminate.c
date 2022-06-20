@@ -154,7 +154,7 @@ void spore_abort(const char* const file_, const char* const func_, const int64_t
     {
         SPRX_PRINTF_ERROR("-------------------------\n\nabort has been called\n\nfile:\t%s\nfunc:\t%s\nline:\t%lli\ndate:\t%s\ntime:\t%s\n\n", file_, func_, line_, date_, time_);
 
-        if (NULL != error_->type)
+        if (NULL != error_->type && 0 == strcmp("", error_->type))
         {
             SPRX_PRINTF_ERROR("type:\t%s error\n", error_->type);
         }
@@ -168,22 +168,22 @@ void spore_abort(const char* const file_, const char* const func_, const int64_t
             SPRX_PRINT("evil:\tfalse\n");
         }
 
-        if (NULL != error_->what)
+        if (NULL != error_->what && 0 != strcmp("", error_->what))
         {
             SPRX_PRINTF_ERROR("what:\t%s\n", error_->what);
         }
 
-        if (NULL != error_->name)
+        if (NULL != error_->name && 0 != strcmp("", error_->name))
         {
             SPRX_PRINTF_ERROR("name:\t%s\n", error_->name);
         }
 
-        if (NULL != error_->info)
+        if (NULL != error_->info && 0 != strcmp("", error_->info))
         {
             SPRX_PRINTF_ERROR("info:\t%s\n", error_->info);
         }
 
-        if (NULL != error_->care)
+        if (NULL != error_->care && 0 != strcmp("", error_->care))
         {
             SPRX_PRINTF_ERROR("care:\t%s\n", error_->care);
         }
