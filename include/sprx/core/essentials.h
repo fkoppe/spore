@@ -20,16 +20,12 @@
 *                                                                                   *
 ************************************************************************************/
 
-#ifndef ___SPRX___SPORE_H
-#define ___SPRX___SPORE_H
+#ifndef ___SPRX___ESSENTIALS_H
+#define ___SPRX___ESSENTIALS_H
 
-#include "sprx/core/assert.h"
-#include "sprx/core/core.h"
-#include "sprx/core/error.h"
-#include "sprx/core/essentials.h"
-#include "sprx/core/info.h"
-#include "sprx/core/printf.h"
-#include "sprx/core/sprintf.h"
-#include "sprx/core/terminate.h"
+#include <stdlib.h>
 
-#endif // ___SPRX___SPORE_H
+#include <stdbool.h>
+#include <stdint.h>
+
+#endif // ___SPRX___ESSENTIALS_H

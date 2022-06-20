@@ -20,16 +20,34 @@
 *                                                                                   *
 ************************************************************************************/
 
-#ifndef ___SPRX___SPORE_H
-#define ___SPRX___SPORE_H
+#ifndef ___SPRX___PRINTF_H
+#define ___SPRX___PRINTF_H
 
-#include "sprx/core/assert.h"
-#include "sprx/core/core.h"
-#include "sprx/core/error.h"
 #include "sprx/core/essentials.h"
-#include "sprx/core/info.h"
-#include "sprx/core/printf.h"
-#include "sprx/core/sprintf.h"
-#include "sprx/core/terminate.h"
 
-#endif // ___SPRX___SPORE_H
+#include <stdarg.h>
+
+#ifdef ___SPRX_DEBUG
+    #define SPRX_PRINT(data) spore_print(data)
+    #define SPRX_PRINT_ERROR(data) spore_print_error(data)
+    #define SPRX_PRINTF(...) spore_printf(__VA_ARGS__)
+    #define SPRX_PRINTF_ERROR(...) spore_printf_error(__VA_ARGS__)
+    #define SPRX_VPRINTF(format, args) spore_vprintf(format, args)
+    #define SPRX_VPRINTF_ERROR(format, args) spore_vprintf_error(format, args)
+#else
+    #define SPRX_PRINT(data)
+    #define SPRX_PRINT_ERROR(data)
+    #define SPRX_PRINTF(...)
+    #define SPRX_PRINTF_ERROR(...)
+    #define SPRX_VPRINTF(format, args)
+    #define SPRX_VPRINTF_ERROR(format, args)
+#endif // !___SPRX_DEBUG
+
+int spore_print(const char* const data);
+int spore_print_error(const char* const data);
+int spore_printf(const char* const format, ...);
+int spore_printf_error(const char* const format, ...);
+int spore_vprintf(const char* const format, const va_list args);
+int spore_vprintf_error(const char* const format, const va_list args);
+
+#endif // ___SPRX___PRINTF_H

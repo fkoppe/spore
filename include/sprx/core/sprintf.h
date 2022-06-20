@@ -20,16 +20,19 @@
 *                                                                                   *
 ************************************************************************************/
 
-#ifndef ___SPRX___SPORE_H
-#define ___SPRX___SPORE_H
+#ifndef ___SPRX___SPRINTF_H
+#define ___SPRX___SPRINTF_H
 
-#include "sprx/core/assert.h"
-#include "sprx/core/core.h"
-#include "sprx/core/error.h"
 #include "sprx/core/essentials.h"
-#include "sprx/core/info.h"
-#include "sprx/core/printf.h"
-#include "sprx/core/sprintf.h"
-#include "sprx/core/terminate.h"
 
-#endif // ___SPRX___SPORE_H
+#include <stdarg.h>
+
+#define SPRX_SPRINTF_BUFFER_SIZE_MIN 512
+
+int spore_sprintf(char* const buf, const char* const format, ...);
+int spore_snprintf(char* const buf, const int count, const char* const format, ...);
+int spore_vsprintf(char* const buf, const char* const format, const va_list args);
+int spore_vsnprintf(char* const buf, const int count, const char* const format, const va_list args);
+int spore_vsprintfcb(char* (*func)(const char* buf, void* const arg, const int len), void* const arg, char* const buf, const char* const format, const va_list args);
+
+#endif // ___SPRX___SPRINTF_H

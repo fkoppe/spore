@@ -20,16 +20,31 @@
 *                                                                                   *
 ************************************************************************************/
 
-#ifndef ___SPRX___SPORE_H
-#define ___SPRX___SPORE_H
+#ifndef ___SPRX___ERROR_H
+#define ___SPRX___ERROR_H
 
-#include "sprx/core/assert.h"
-#include "sprx/core/core.h"
-#include "sprx/core/error.h"
 #include "sprx/core/essentials.h"
-#include "sprx/core/info.h"
-#include "sprx/core/printf.h"
-#include "sprx/core/sprintf.h"
-#include "sprx/core/terminate.h"
 
-#endif // ___SPRX___SPORE_H
+typedef struct SPRX_Error
+{
+    const char* type;
+    const bool evil;
+    const char* what;
+    const char* name;
+    const char* info;
+    const char* care;
+} SPRX_Error;
+
+#define SPRX_ERROR_UNDEFINED(name, info, care) (SPRX_Error[]){ "undefined", true, "<no information>", name, info, care }
+#define SPRX_ERROR_RUNTIME(what, name, info, care) (SPRX_Error[]){ "runtime", true, what, name, info, care }
+#define SPRX_ERROR_ALLOCATION(name, info, care) (SPRX_Error[]){ "allocation", true, "m-/ca-/realloc failed", name, info, care }
+#define SPRX_ERROR_OVERFLOW(what, name, info, care) (SPRX_Error[]){ "overflow", true, what, name, info, care }
+#define SPRX_ERROR_UNDERFLOW(what, name, info, care) (SPRX_Error[]){ "underflow", true, what, name, info, care }
+#define SPRX_ERROR_PTR(name, info, care) (SPRX_Error[]){ "ptr", true, "invalid pointer", name, info, care }
+
+#define SPRX_ERROR_UNKNOWN(name, info, care) (SPRX_Error[]){ "unknown", false, "<no information>", name, info, care }
+#define SPRX_ERROR_NULL(name, info, care) (SPRX_Error[]){ "null", false, "unexpected null-pointer", name, info, care }
+#define SPRX_ERROR_BOUNDS(name, care) (SPRX_Error[]){ "bounds", false, "invalid switch expression value", name, info, care }
+#define SPRX_ERROR_ENUM(name, info, care) (SPRX_Error[]){ "enum", false, "invalid enum value", name, info, care }
+
+#endif // ___SPRX___ERROR_H

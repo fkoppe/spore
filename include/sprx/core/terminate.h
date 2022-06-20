@@ -20,16 +20,30 @@
 *                                                                                   *
 ************************************************************************************/
 
-#ifndef ___SPRX___SPORE_H
-#define ___SPRX___SPORE_H
+#ifndef ___SPRX___TERMINATE_H
+#define ___SPRX___TERMINATE_H
 
-#include "sprx/core/assert.h"
-#include "sprx/core/core.h"
 #include "sprx/core/error.h"
 #include "sprx/core/essentials.h"
-#include "sprx/core/info.h"
-#include "sprx/core/printf.h"
-#include "sprx/core/sprintf.h"
-#include "sprx/core/terminate.h"
 
-#endif // ___SPRX___SPORE_H
+#ifdef ___SPRX_DEBUG
+    #define SPRX_QUICK_EXIT(code) spore_quick_exit(__FILE__, __func__, __LINE__, __DATE__, __TIME__, code, SPRX_ERROR_UNDEFINED(NULL, NULL, NULL))
+    #define SPRX_EXIT(code) spore_exit(__FILE__, __func__, __LINE__, __DATE__, __TIME__, code, SPRX_ERROR_UNDEFINED(NULL, NULL, NULL))
+    #define SPRX_ABORT spore_abort(__FILE__, __func__, __LINE__, __DATE__, __TIME__, SPRX_ERROR_UNDEFINED(NULL, NULL, NULL))
+    #define SPRX_QUICK_EXIT_ERROR(code, error) spore_quick_exit(__FILE__, __func__, __LINE__, __DATE__, __TIME__, code, error)
+    #define SPRX_EXIT_ERROR(code, error) spore_exit(__FILE__, __func__, __LINE__, __DATE__, __TIME__, code, error)
+    #define SPRX_ABORT_ERROR(error) spore_abort(__FILE__, __func__, __LINE__, __DATE__, __TIME__, error)
+#else
+    #define SPRX_QUICK_EXIT(code) quick_exit(code)
+    #define SPRX_EXIT(code) exit(code)
+    #define SPRX_ABORT abort()
+    #define SPRX_QUICK_EXIT_ERROR(code, error) quick_exit(code)
+    #define SPRX_EXIT_ERROR(code, error) exit(code)
+    #define SPRX_ABORT_ERROR(error) abort()
+#endif // !___SPRX_DEBUG
+
+void spore_quick_exit(const char* const file, const char* const func, const int64_t line, const char* const date, const char* const time, const int64_t code, const SPRX_Error* const error);
+void spore_exit(const char* const file, const char* const func, const int64_t line, const char* const date, const char* const time, const int64_t code, const SPRX_Error* const error);
+void spore_abort(const char* const file, const char* const func, const int64_t line, const char* const date, const char* const time, const SPRX_Error* const error);
+
+#endif // ___SPRX___TERMINATE_H

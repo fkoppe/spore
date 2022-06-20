@@ -20,16 +20,61 @@
 *                                                                                   *
 ************************************************************************************/
 
-#ifndef ___SPRX___SPORE_H
-#define ___SPRX___SPORE_H
-
-#include "sprx/core/assert.h"
-#include "sprx/core/core.h"
-#include "sprx/core/error.h"
-#include "sprx/core/essentials.h"
-#include "sprx/core/info.h"
-#include "sprx/core/printf.h"
 #include "sprx/core/sprintf.h"
-#include "sprx/core/terminate.h"
 
-#endif // ___SPRX___SPORE_H
+#define STB_SPRINTF_IMPLEMENTATION
+#include "stb/stb_sprintf.h"
+
+#include <assert.h>
+
+int spore_sprintf(char* const buf_, const char* const format_, ...)
+{
+    assert(NULL != buf_);
+    assert(NULL != format_);
+
+    va_list args;
+    va_start(args, format_);
+    const int result = stbsp_vsprintf(buf_, format_, args);
+    va_end(args);
+
+    return result;
+}
+
+int spore_snprintf(char* const buf_, const int count_, const char* const format_, ...)
+{
+    assert(NULL != buf_);
+    assert(NULL != format_);
+
+    va_list args;
+    va_start(args, format_);
+    const int result = stbsp_vsnprintf(buf_, count_, format_, args);
+    va_end(args);
+
+    return result;
+}
+
+int spore_vsprintf(char* const buf_, const char* const format_, const va_list args_)
+{
+    assert(NULL != buf_);
+    assert(NULL != format_);
+
+    return stbsp_vsprintf(buf_, format_, args_);
+}
+
+int spore_vsnprintf(char* const buf_, const int count_, const char* const format_, const va_list args_)
+{
+    assert(NULL != buf_);
+    assert(NULL != format_);
+
+    return stbsp_vsnprintf(buf_, count_, format_, args_);
+}
+
+int spore_vsprintfcb(char* (*func_)(const char* buf, void* const arg, const int len), void* const arg_, char* const buf_, const char* const format_, const va_list args_)
+{
+    assert(NULL != func_);
+    assert(NULL != arg_);
+    assert(NULL != buf_);
+    assert(NULL != format_);
+
+    return stbsp_vsprintfcb(func_, arg_, buf_, format_, args_);
+}

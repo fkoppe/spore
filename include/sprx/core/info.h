@@ -20,16 +20,29 @@
 *                                                                                   *
 ************************************************************************************/
 
-#ifndef ___SPRX___SPORE_H
-#define ___SPRX___SPORE_H
+#ifndef ___SPRX___INFO_H
+#define ___SPRX___INFO_H
 
-#include "sprx/core/assert.h"
-#include "sprx/core/core.h"
-#include "sprx/core/error.h"
 #include "sprx/core/essentials.h"
-#include "sprx/core/info.h"
-#include "sprx/core/printf.h"
-#include "sprx/core/sprintf.h"
-#include "sprx/core/terminate.h"
 
-#endif // ___SPRX___SPORE_H
+#define SPRX_VERSION uint32_t
+
+#define SPRX_VERSION_MAKE(variant, major, minor, patch) \
+((((uint32_t)(variant)) << 29) | (((uint32_t)(major)) << 22) | (((uint32_t)(minor)) << 12) | ((uint32_t)(patch)))
+
+#define SPRX_VERSION_VARIANT(version) \
+((uint32_t)(version) >> 29)
+
+#define SPRX_VERSION_MAJOR(version) \
+(((uint32_t)(version) >> 22) & 0x7FU)
+
+#define SPRX_VERSION_MINOR(version) \
+(((uint32_t)(version) >> 12) & 0x3FFU)
+
+#define SPRX_VERSION_PATCH(version) \
+((uint32_t)(version) & 0xFFFU)
+
+static const char* const SPRX_INFO_LIBRARY_NAME = "spore";
+static const SPRX_VERSION SPRX_INFO_LIBRARY_VERSION = SPRX_VERSION_MAKE(0, 0, 1, 0);
+
+#endif // ___SPRX___INFO_H

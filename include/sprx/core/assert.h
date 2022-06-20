@@ -20,16 +20,24 @@
 *                                                                                   *
 ************************************************************************************/
 
-#ifndef ___SPRX___SPORE_H
-#define ___SPRX___SPORE_H
+#ifndef ___SPRX___ASSERT_H
+#define ___SPRX___ASSERT_H
 
-#include "sprx/core/assert.h"
-#include "sprx/core/core.h"
 #include "sprx/core/error.h"
 #include "sprx/core/essentials.h"
-#include "sprx/core/info.h"
-#include "sprx/core/printf.h"
-#include "sprx/core/sprintf.h"
-#include "sprx/core/terminate.h"
 
-#endif // ___SPRX___SPORE_H
+#include <stdarg.h>
+
+#ifndef ___SFCX_NOASSERT
+    #ifdef ___SFCX_DEBUG
+        #define SPRX_ASSERT(condition, error) if(!(condition)) spore_assert(__FILE__, __func__, __LINE__, __DATE__, __TIME__, #condition, error)
+    #else
+        #define SPRX_ASSERT(condition, error) if(!(condition)) abort()
+    #endif // ___SFCX_DEBUG
+#else
+    #define SPRX_ASSERT(condition, error)
+#endif // !___SFCX_NOASSERT
+
+void spore_assert(const char* const file, const char* const func, const int line, const char* const date, const char* const time, const char* const condition, const SPRX_Error* const error);
+
+#endif // ___SPRX___ASSERT_H

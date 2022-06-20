@@ -1,0 +1,12 @@
+target_sources(
+    spore
+    PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/assert.h
+    ${CMAKE_CURRENT_LIST_DIR}/core.h
+    ${CMAKE_CURRENT_LIST_DIR}/error.h
+    ${CMAKE_CURRENT_LIST_DIR}/essentials.h
+    ${CMAKE_CURRENT_LIST_DIR}/info.h
+    ${CMAKE_CURRENT_LIST_DIR}/printf.h
+    ${CMAKE_CURRENT_LIST_DIR}/sprintf.h
+    ${CMAKE_CURRENT_LIST_DIR}/terminate.h
+)
