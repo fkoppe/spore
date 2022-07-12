@@ -23,6 +23,8 @@
 #ifndef ___SPRX___SPORE_H
 #define ___SPRX___SPORE_H
 
+#include "sprx/container/vector.h"
+
 #include "sprx/core/assert.h"
 #include "sprx/core/core.h"
 #include "sprx/core/error.h"
