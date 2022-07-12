@@ -48,15 +48,6 @@ void spore_assert(const char* const file_, const char* const func_, const int li
             SPRX_PRINTF_ERROR("type:\t%s error\n", error_->type);
         }
 
-        if (error_->evil)
-        {
-            SPRX_PRINT("evil:\ttrue\n");
-        }
-        else
-        {
-            SPRX_PRINT("evil:\tfalse\n");
-        }
-
         if (NULL != error_->what && 0 != strcmp("", error_->what))
         {
             SPRX_PRINTF_ERROR("what:\t%s\n", error_->what);

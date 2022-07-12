@@ -47,15 +47,6 @@ void spore_quick_exit(const char* const file_, const char* const func_, const in
             SPRX_PRINTF_ERROR("type:\t%s error\n", error_->type);
         }
 
-        if (error_->evil)
-        {
-            SPRX_PRINT("evil:\ttrue\n");
-        }
-        else
-        {
-            SPRX_PRINT("evil:\tfalse\n");
-        }
-
         if (NULL != error_->what && 0 != strcmp("", error_->what))
         {
             SPRX_PRINTF_ERROR("what:\t%s\n", error_->what);
@@ -103,15 +94,6 @@ void spore_exit(const char* const file_, const char* const func_, const int64_t 
             SPRX_PRINTF_ERROR("type:\t%s error\n", error_->type);
         }
 
-        if (error_->evil)
-        {
-            SPRX_PRINT("evil:\ttrue\n");
-        }
-        else
-        {
-            SPRX_PRINT("evil:\tfalse\n");
-        }
-
         if (NULL != error_->what)
         {
             SPRX_PRINTF_ERROR("what:\t%s\n", error_->what);
@@ -157,15 +139,6 @@ void spore_abort(const char* const file_, const char* const func_, const int64_t
         if (NULL != error_->type && 0 == strcmp("", error_->type))
         {
             SPRX_PRINTF_ERROR("type:\t%s error\n", error_->type);
-        }
-
-        if (error_->evil)
-        {
-            SPRX_PRINT("evil:\ttrue\n");
-        }
-        else
-        {
-            SPRX_PRINT("evil:\tfalse\n");
         }
 
         if (NULL != error_->what && 0 != strcmp("", error_->what))

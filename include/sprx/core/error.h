@@ -28,23 +28,27 @@
 typedef struct SPRX_Error
 {
     const char* type;
-    const bool evil;
     const char* what;
     const char* name;
     const char* info;
     const char* care;
 } SPRX_Error;
 
-#define SPRX_ERROR_UNDEFINED(name, info, care) (SPRX_Error[]){ "undefined", true, "<no information>", name, info, care }
-#define SPRX_ERROR_RUNTIME(what, name, info, care) (SPRX_Error[]){ "runtime", true, what, name, info, care }
-#define SPRX_ERROR_ALLOCATION(name, info, care) (SPRX_Error[]){ "allocation", true, "m-/ca-/realloc failed", name, info, care }
-#define SPRX_ERROR_OVERFLOW(what, name, info, care) (SPRX_Error[]){ "overflow", true, what, name, info, care }
-#define SPRX_ERROR_UNDERFLOW(what, name, info, care) (SPRX_Error[]){ "underflow", true, what, name, info, care }
-#define SPRX_ERROR_PTR(name, info, care) (SPRX_Error[]){ "ptr", true, "invalid pointer", name, info, care }
+#define SPRX_ERROR_UNKNOWN(name) (SPRX_Error[]){ "unknown", "<no information>", name, "must not occur", NULL }
+#define SPRX_ERROR_UNDEFINED(name, info) (SPRX_Error[]){ "undefined", "<no information>", name, info }
 
-#define SPRX_ERROR_UNKNOWN(name, info, care) (SPRX_Error[]){ "unknown", false, "<no information>", name, info, care }
-#define SPRX_ERROR_NULL(name, info, care) (SPRX_Error[]){ "null", false, "unexpected null-pointer", name, info, care }
-#define SPRX_ERROR_BOUNDS(name, care) (SPRX_Error[]){ "bounds", false, "invalid switch expression value", name, info, care }
-#define SPRX_ERROR_ENUM(name, info, care) (SPRX_Error[]){ "enum", false, "invalid enum value", name, info, care }
+#define SPRX_ERROR_ALLOCATION(name, info, care) (SPRX_Error[]){ "allocation", "m-/ca-/realloc failed", name, info, care }
+
+#define SPRX_ERROR_RUNTIME(what, name, info, care) (SPRX_Error[]){ "runtime", what, name, info, care }
+    #define SPRX_ERROR_OVERFLOW(name, info, care) SPRX_ERROR_RUNTIME("overflow", name, info, care)
+    #define SPRX_ERROR_UNDERFLOW(name, info, care) SPRX_ERROR_RUNTIME("underflow", name, info ,care)
+    #define SPRX_ERROR_PTR(name, info, care) SPRX_ERROR_RUNTIME("invalid pointer", name, info, care)
+    #define SPRX_ERROR_BOUNDS(name, info, care) SPRX_ERROR_RUNTIME("invalid switch value", name, info, care)
+
+#define SPRX_ERROR_LOGIC(what, name, info, care) (SPRX_Error[]){ "logic", what, name, info, care }
+    #define SPRX_ERROR_ARGUMENT(name, info, care) SPRX_ERROR_LOGIC("invalid argument", name, info, care)
+    #define SPRX_ERROR_NULL(name, info) SPRX_ERROR_LOGIC("unexpected null-pointer", name, info, "${info} has to be !=NULL")
+    #define SPRX_ERROR_RANGE(name, info, care) SPRX_ERROR_LOGIC("out of range", name, info, care)
+    #define SPRX_ERROR_ENUM(name, info, care) SPRX_ERROR_LOGIC("invalid enum value", name, info, care)
 
 #endif // ___SPRX___ERROR_H
